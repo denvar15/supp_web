@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { MdArrowBack, MdOutlineFlashOff } from "react-icons/md";
+import Select from 'react-select'
 import Camera, { FACING_MODES } from 'react-html5-camera-photo';
 import 'react-html5-camera-photo/build/css/index.css';
 import "./scanner.css";
@@ -15,7 +15,12 @@ const allergens_array = ['Milk', 'Egg', 'Peanuts', 'Almonds', 'Walnuts', 'Cashew
 const sweeteners_array = ['Acesulfame K', 'E950', 'Advantame', 'E969', 'Aspartame', 'E951', 'Neotame',
  'E961', 'Stevia', 'Steviol glycosides', 'Stevia rebaudiana', 'Sucralose', 'Е955'].map(v => v.toLowerCase())
 const categories_dict = {'Bee products': bee_products_array, 'Allergens': allergens_array, 'Sweeteners': sweeteners_array}
-const categories = ['Bee products', 'Allergens', 'Sweeteners']
+
+const options = [
+    { value: 'Bee products', label: 'Bee products' },
+    { value: 'Allergens', label: 'Allergens' },
+    { value: 'Sweeteners', label: 'Sweeteners' }
+  ]
 
 function resizeBase64Img(base64, newWidth, newHeight) {
     return new Promise((resolve, reject)=>{
@@ -76,6 +81,7 @@ const Photo = () => {
   function searchArrays(ar_message, ar_message_pairs) {
         let founded_compounds = []
         let category_compounds = []
+        console.log("userCategory search ", userCategory)
         for (let i of ar_message) {
             if (important_array.includes(i)) {
                 // current_arrays[update.message.from_user['id']].append(i)
@@ -120,7 +126,7 @@ const Photo = () => {
 
   async function handleTakePhoto (dataUri) {
     var dimensions = await getImageDimensions(dataUri)
-    const approxSize = dataUri.length * 3 / 4
+    const approxSize = dataUri.length
     console.log("FACING_MODES ", FACING_MODES)
     const scaler = 1024000 / approxSize
     console.log('takePhoto ', process.env.REACT_APP_API_OCR_KEY);
@@ -148,19 +154,12 @@ const Photo = () => {
 
   return (
     <div className="container">
-      <div className="scan-header">
-        <MdArrowBack size={25} color="#fff" />
-        <h3>Scan QR code</h3>
-        <MdOutlineFlashOff
-          style={{ marginLeft: "auto" }}
-          size={25}
-          color="#fff"
-        />
-      </div>
       <Camera
       idealFacingMode={FACING_MODES.ENVIRONMENT}
       onTakePhoto = { (dataUri) => { handleTakePhoto(dataUri); } }
     />
+    <Select options={options}
+          onChange={(newValue) => setUserCategory(newValue['label'])}/>
     <h1 style={{color: "red"}}>{harmfulText}</h1>
     <h1 style={{color: "orange"}}>{categoryText}</h1>
     <h1 style={{color: "green"}}>{okayText}</h1>
