@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { MdArrowBack, MdOutlineFlashOff } from "react-icons/md";
-import Camera from 'react-html5-camera-photo';
+import Camera, { FACING_MODES } from 'react-html5-camera-photo';
 import 'react-html5-camera-photo/build/css/index.css';
 import "./scanner.css";
 
@@ -121,7 +121,7 @@ const Photo = () => {
   async function handleTakePhoto (dataUri) {
     var dimensions = await getImageDimensions(dataUri)
     const approxSize = dataUri.length * 3 / 4
-    console.log("approxSize ", approxSize)
+    console.log("FACING_MODES ", FACING_MODES)
     const scaler = 1024000 / approxSize
     console.log('takePhoto ', process.env.REACT_APP_API_OCR_KEY);
     resizeBase64Img(dataUri, scaler * dimensions.w, scaler * dimensions.h).then((result)=>{
@@ -158,6 +158,7 @@ const Photo = () => {
         />
       </div>
       <Camera
+      idealFacingMode={FACING_MODES.ENVIRONMENT}
       onTakePhoto = { (dataUri) => { handleTakePhoto(dataUri); } }
     />
     <h1 style={{color: "red"}}>{harmfulText}</h1>
