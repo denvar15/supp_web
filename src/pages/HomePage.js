@@ -97,6 +97,9 @@ const HomePage = () => {
       <button onClick={() => navigate("/scanner")} className="btn">
         Scan QR
       </button>
+      <button onClick={() => navigate("/photo")} className="btn">
+        Take Photo
+      </button>
     </div>
   );
 };
