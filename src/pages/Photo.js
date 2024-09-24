@@ -16,6 +16,11 @@ const sweeteners_array = ['Acesulfame K', 'E950', 'Advantame', 'E969', 'Aspartam
  'E961', 'Stevia', 'Steviol glycosides', 'Stevia rebaudiana', 'Sucralose', 'Е955'].map(v => v.toLowerCase())
 const categories_dict = {'Bee products': bee_products_array, 'Allergens': allergens_array, 'Sweeteners': sweeteners_array}
 
+const optionsLang = [
+  { value: 'eng', label: 'English' },
+  { value: 'rus', label: 'Russian' },
+]
+
 const options = [
     { value: 'Bee products', label: 'Bee products' },
     { value: 'Allergens', label: 'Allergens' },
@@ -77,6 +82,11 @@ const Photo = () => {
   const [categoryText, setCategoryText] = useState(); 
   const [okayText, setOkayText] = useState(); 
   const [userCategory, setUserCategory] = useState("Bee products"); 
+  const [lang, setLang] = useState("eng"); 
+  const [age, setAge] = useState("");
+  const [height, setHeight] = useState("");
+  const [weight, setWeight] = useState("");
+  const [allergies, setAllergies] = useState("");
 
   function searchArrays(ar_message, ar_message_pairs) {
         let founded_compounds = []
@@ -131,10 +141,10 @@ const Photo = () => {
     const scaler = 1024000 / approxSize
     console.log('takePhoto ', process.env.REACT_APP_API_OCR_KEY);
     resizeBase64Img(dataUri, scaler * dimensions.w, scaler * dimensions.h).then((result)=>{
-        postData('https://api.ocr.space/parse/image', {"base64Image": result, "language": 'eng'}).then((data) => {
+        postData('https://api.ocr.space/parse/image', {"base64Image": result, "language": lang}).then((data) => {
             let text = data['ParsedResults'][0]['ParsedText'].toLowerCase()
             const regex = /\r\n|\r|\n/;
-            let newText = text.replace(regex, ' ')
+            // let newText = text.replace(regex, ' ')
             // setOcrtext(newText)
             const ar_message = text.split(regex)
             const ar_message_pairs = []
@@ -152,17 +162,67 @@ const Photo = () => {
     });
   }
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    alert(`The age you entered was: ${age}`);
+  }
+
   return (
     <div className="container">
-      <Camera
-      idealFacingMode={FACING_MODES.ENVIRONMENT}
-      onTakePhoto = { (dataUri) => { handleTakePhoto(dataUri); } }
-    />
-    <Select options={options}
-          onChange={(newValue) => setUserCategory(newValue['label'])}/>
+      <h1 style={{marginLeft: "10vw"}}>Supplement Assistant</h1>
+      <div style={{width:"80vw", margin: "auto"}}>
+        <Select options={optionsLang}
+            onChange={(newValue) => setLang(newValue['value'])}/>
+      </div>
+      <div style={{margin:"25px"}}>
+        <Camera
+            idealFacingMode={FACING_MODES.ENVIRONMENT}
+            onTakePhoto = { (dataUri) => { handleTakePhoto(dataUri); } }
+          />
+      </div>
+      <div style={{width:"80vw", margin: "auto"}}>
+        <Select options={options}
+            onChange={(newValue) => setUserCategory(newValue['label'])}/>
+      </div>
     <h1 style={{color: "red"}}>{harmfulText}</h1>
     <h1 style={{color: "orange"}}>{categoryText}</h1>
     <h1 style={{color: "green"}}>{okayText}</h1>
+    <form style={{width:"80vw", margin: "auto"}} onSubmit={handleSubmit}>
+      <label>
+        <h2>Here you can input your individual parameters:</h2>
+        <input 
+          style={{width: "75%"}}
+          type="text" 
+          placeholder="Your age..."
+          value={age}
+          onChange={(e) => setAge(e.target.value)}
+        />
+        <input 
+          style={{width: "75%"}}
+          type="text" 
+          placeholder="Your height..."
+          value={height}
+          onChange={(e) => setHeight(e.target.value)}
+        />
+        <input 
+          style={{width: "75%"}}
+          type="text" 
+          placeholder="Your weight..."
+          value={weight}
+          onChange={(e) => setWeight(e.target.value)}
+        />
+        <input 
+          style={{width: "75%"}}
+          type="text" 
+          placeholder="Your allergies..."
+          value={allergies}
+          onChange={(e) => setAllergies(e.target.value)}
+        />
+      </label>
+      <br></br>
+      <input style={{marginTop: "1vh", width: "15%", fontSize: "15px", backgroundColor: "white"}} type="submit" value="Send" />
+    </form>
+    <div style={{marginTop: "2vh"}}> </div>
     </div>
   );
 };
