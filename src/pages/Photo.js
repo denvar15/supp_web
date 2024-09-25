@@ -3,7 +3,8 @@ import Camera, { FACING_MODES } from 'react-html5-camera-photo';
 import 'react-html5-camera-photo/build/css/index.css';
 import "./scanner.css";
 import { useNavigate } from "react-router";
-import { Heading, Text, Select, TextInput, Button } from 'grommet';
+import { Heading, Text, Select, TextInput, Button, Grid } from 'grommet';
+import { Shop } from 'grommet-icons';
 
 const quality_marks = ['GMP', 'ISO', 'NSF', 'HACCP', 'SQF', 'FSSC'].map(v => v.toLowerCase())
 const important_array = ['Titanium Dioxide', 'kava', 'Magnesium Silicate', 'Magnesium Stearate', 'Talc', 'Hydrogenated Oil',
@@ -219,7 +220,7 @@ const Photo = () => {
 
   return (
     <div>
-      <Text style={{fontSize: "25px", fontWeight: "750", display: "block", border: "3px solid rgb(125, 76, 219)",
+      <Text style={{fontSize: "25px", fontWeight: "750", display: "block", border: "1.5px solid rgb(125, 76, 219)",
                  padding: "10px", color: "rgb(111, 255, 176)", borderRadius: "5px", textAlign: "center"}}>
         Supplement <Text style={{fontSize: "25px", fontWeight: "750", color: "white"}}>Assistant</Text>
       </Text>
@@ -273,7 +274,29 @@ const Photo = () => {
       <Button primary style={{marginLeft: "10vw", padding: "10px", color: "black",
         fontWeight: "750", backgroundColor: "rgb(111, 255, 176)",}}
        onClick={handleSubmit}>Create individual notification</Button>
-      <div style={{marginTop: "2vh"}}> </div>
+      
+      <div style={{marginTop: "5vh"}}> </div>
+
+      <Grid
+        rows={['auto', 'auto']}
+        columns={['1/4', '3/4']}
+        gap="none"
+        style={{borderRadius: "5px", border: "1px solid rgb(125, 76, 219)"}}
+        areas={[
+          { name: 'nav', start: [0, 1], end: [0, 1] },
+          { name: 'main', start: [1, 1], end: [1, 1] },
+        ]}
+      >
+        <Text gridArea="nav" style={{fontSize: "25px", fontWeight: "750", display: "inline-block",
+                  padding: "10px", color: "rgb(111, 255, 176)", border: "1px solid rgb(125, 76, 219)"}}>
+          <Shop color='white' size='medium' style={{marginRight: "5px"}} /> 
+          Supplement's <Text style={{fontSize: "25px", fontWeight: "750", color: "white"}}>Cart</Text>
+        </Text>
+        <Text gridArea="main" style={{fontSize: "25px", textAlign: "end", fontWeight: "650", display: "inline-block",
+                  padding: "10px", border: "1px solid rgb(125, 76, 219)"}}>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing  
+        </Text>
+      </Grid>
     </div>
   );
 };
