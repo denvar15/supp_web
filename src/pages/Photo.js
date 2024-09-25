@@ -104,6 +104,9 @@ const Photo = () => {
   const [qualityText, setQualityText] = useState(""); 
   const [userCategory, setUserCategory] = useState("Bee products"); 
   const [lang, setLang] = useState("English"); 
+  const [qualityCheck, setQualityCheck] = useState(""); 
+  const [harmfulCompounds, setHarmfulCompounds] = useState(""); 
+  const [categoryCompounds, setCategoryCompounds] = useState(""); 
   const [description, setDescription] = useState(""); 
   const navigate = useNavigate();
 
@@ -165,7 +168,15 @@ const Photo = () => {
                   setOkayText("Everything is okay!")
                 }
         }
+        setCategoryCompounds(category_compounds)
+        setHarmfulCompounds(founded_compounds)
+        setQualityCheck(quality_compounds)
         getDescription(ar_message)
+        let items = JSON.parse(window.localStorage.getItem("scannedItems"))
+        if (!items) {items = []}
+        items.push({"name": name, "category": [userCategory, categoryCompounds], 
+          "harmful": harmfulCompounds, "quality": qualityCheck})
+        window.localStorage.setItem("scannedItems", JSON.stringify(items))
     }
 
   async function handleTakePhoto (dataUri) {
@@ -279,7 +290,7 @@ const Photo = () => {
 
       <Grid
         rows={['auto', 'auto']}
-        columns={['1/4', '3/4']}
+        columns={['2/4', '2/4']}
         gap="none"
         style={{borderRadius: "5px", border: "1px solid rgb(125, 76, 219)"}}
         areas={[
@@ -287,14 +298,15 @@ const Photo = () => {
           { name: 'main', start: [1, 1], end: [1, 1] },
         ]}
       >
-        <Text gridArea="nav" style={{fontSize: "25px", fontWeight: "750", display: "inline-block",
-                  padding: "10px", color: "rgb(111, 255, 176)", border: "1px solid rgb(125, 76, 219)"}}>
+        <Text onClick={() => navigate("/cart", {replace: true})}
+              gridArea="nav" style={{fontSize: "20px", fontWeight: "750", display: "inline-block", cursor: "pointer",
+                padding: "10px", color: "rgb(111, 255, 176)", border: "1px solid rgb(125, 76, 219)"}}>
           <Shop color='white' size='medium' style={{marginRight: "5px"}} /> 
-          Supplement's <Text style={{fontSize: "25px", fontWeight: "750", color: "white"}}>Cart</Text>
+          Supplement's <Text style={{fontSize: "20px", fontWeight: "750", color: "white"}}>Cart</Text>
         </Text>
-        <Text gridArea="main" style={{fontSize: "25px", textAlign: "end", fontWeight: "650", display: "inline-block",
+        <Text gridArea="main" style={{fontSize: "20px", textAlign: "end", fontWeight: "650", display: "inline-block",
                   padding: "10px", border: "1px solid rgb(125, 76, 219)"}}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing  
+                  Our telegram: @supchecker_bot 
         </Text>
       </Grid>
     </div>

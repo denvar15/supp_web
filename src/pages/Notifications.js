@@ -124,14 +124,28 @@ const Notifications = () => {
       <div style={{marginTop: "2vh"}}> </div>
       {okayDosageText !== '' ? 
       <div><Text style={{fontSize: "25px", fontWeight: "750", color: "rgb(125, 76, 219)", marginLeft: "10vw"}}>{okayDosageText}</Text></div> : ''}
-      <Button type="submit" primary style={{marginLeft: "80vw", padding: "10px", fontWeight: "750"}} 
-      onClick={() => navigate("/", {replace: true})}>Back to Photo</Button>
 
-      <div style={{marginTop: "5vh"}}> </div>
+      <div style={{marginTop: "3vh"}}> </div>
+      
+      <Grid
+        rows={['auto', 'auto']}
+        columns={['2/4', '2/4']}
+        gap="none"
+        areas={[
+          { name: 'nav', start: [0, 1], end: [0, 1] },
+          { name: 'main', start: [1, 1], end: [1, 1] },
+        ]}
+      >
+        <Button gridArea="main" type="submit" primary style={{ padding: "10px", fontWeight: "750"}} 
+          onClick={() => navigate("/", {replace: true})}>Back to Photo</Button>
+        <div gridArea="nav"> </div>
+      </Grid>
+
+      <div style={{marginTop: "2vh"}}> </div>
 
       <Grid
         rows={['auto', 'auto']}
-        columns={['1/4', '3/4']}
+        columns={['2/4', '2/4']}
         gap="none"
         style={{borderRadius: "5px", border: "1px solid rgb(125, 76, 219)"}}
         areas={[
@@ -139,14 +153,15 @@ const Notifications = () => {
           { name: 'main', start: [1, 1], end: [1, 1] },
         ]}
       >
-        <Text gridArea="nav" style={{fontSize: "25px", fontWeight: "750", display: "inline-block",
-                  padding: "10px", color: "rgb(111, 255, 176)", border: "1px solid rgb(125, 76, 219)"}}>
+        <Text onClick={() => navigate("/cart", {replace: true})}
+            gridArea="nav" style={{fontSize: "20px", fontWeight: "750", display: "inline-block", cursor: "pointer",
+              padding: "10px", color: "rgb(111, 255, 176)", border: "1px solid rgb(125, 76, 219)"}}>
           <Shop color='white' size='medium' style={{marginRight: "5px"}} /> 
-          Supplement's <Text style={{fontSize: "25px", fontWeight: "750", color: "white"}}>Cart</Text>
+          Supplement's <Text style={{fontSize: "20px", fontWeight: "750", color: "white"}}>Cart</Text>
         </Text>
-        <Text gridArea="main" style={{fontSize: "25px", textAlign: "end", fontWeight: "650", display: "inline-block",
+        <Text gridArea="main" style={{fontSize: "20px", textAlign: "end", fontWeight: "650", display: "inline-block",
                   padding: "10px", border: "1px solid rgb(125, 76, 219)"}}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing  
+                  Our telegram: @supchecker_bot  
         </Text>
       </Grid>
     </div>
