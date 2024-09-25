@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Select from 'react-select'
 import Camera, { FACING_MODES } from 'react-html5-camera-photo';
 import 'react-html5-camera-photo/build/css/index.css';
 import "./scanner.css";
 import { useNavigate } from "react-router";
+import { Heading, Text, Select, TextInput, Button } from 'grommet';
 
 const quality_marks = ['GMP', 'ISO', 'NSF', 'HACCP', 'SQF', 'FSSC'].map(v => v.toLowerCase())
 const important_array = ['Titanium Dioxide', 'kava', 'Magnesium Silicate', 'Magnesium Stearate', 'Talc', 'Hydrogenated Oil',
@@ -28,16 +28,7 @@ const sweeteners_array_ru = ['Ацесульфам К', 'E950', 'Адванта�
 const categories_dict = {'Bee products': bee_products_array, 'Allergens': allergens_array, 'Sweeteners': sweeteners_array}
 const categories_dict_ru = {'Bee products': bee_products_array_ru, 'Allergens': allergens_array_ru, 'Sweeteners': sweeteners_array_ru}
 
-const optionsLang = [
-  { value: 'eng', label: 'English' },
-  { value: 'rus', label: 'Russian' },
-]
-
-const options = [
-    { value: 'Bee products', label: 'Bee products' },
-    { value: 'Allergens', label: 'Allergens' },
-    { value: 'Sweeteners', label: 'Sweeteners' }
-  ]
+const optionsLang = {"English" : 'eng', "Russian": "rus"}
 
 function resizeBase64Img(base64, newWidth, newHeight) {
     return new Promise((resolve, reject)=>{
@@ -122,7 +113,7 @@ const Photo = () => {
         console.log("userCategory search ", userCategory)
         let search_category = []
         let main_array = []
-        if (lang === 'eng') {
+        if (lang === 'English') {
           search_category = categories_dict[userCategory]
           main_array = important_array
         } else {
@@ -180,8 +171,9 @@ const Photo = () => {
     var dimensions = await getImageDimensions(dataUri)
     const approxSize = dataUri.length
     const scaler = 1024000 / approxSize
+    console.log("LANG ", lang)
     resizeBase64Img(dataUri, scaler * dimensions.w, scaler * dimensions.h).then((result)=>{
-        postData('https://api.ocr.space/parse/image', {"base64Image": result, "language": lang}).then((data) => {
+        postData('https://api.ocr.space/parse/image', {"base64Image": result, "language": optionsLang[lang]}).then((data) => {
             let text = data['ParsedResults'][0]['ParsedText'].toLowerCase()
             const regex = /\r\n|\r|\n|[.]/;
             const ar_message = text.split(regex)
@@ -205,9 +197,11 @@ const Photo = () => {
       if (i !== '' && !quality_marks.includes(i)) {
         let info = await getData('https://api.ods.od.nih.gov/dsld/v9/search-filter?q=' + i)
         console.log("info ", info)
-        let infoLabel = await getData('https://api.ods.od.nih.gov/dsld/v9/label/' + info['hits'][0]['_id'])
-        final_text += '\n' + i + '\n' + infoLabel['statements'][3]['notes'] + "\n" + 
-                    infoLabel['statements'][4]['notes']
+        if (info['hits'].length > 0) {
+          let infoLabel = await getData('https://api.ods.od.nih.gov/dsld/v9/label/' + info['hits'][0]['_id'])
+          final_text += '\n' + i + '\n' + infoLabel['statements'][3]['notes'] + "\n" + 
+                      infoLabel['statements'][4]['notes']
+        }
       }
     }
     setDescription(final_text)
@@ -224,19 +218,25 @@ const Photo = () => {
   }
 
   return (
-    <div className="container">
-      <h1 style={{marginLeft: "10vw"}}>Supplement Assistant</h1>
-      <h2 style={{marginLeft: "10vw"}}>Here you can input name of your supplement:</h2>
-      <input 
-        style={{width:"80vw", marginLeft: "10vw", marginBottom: "2vh"}}
+    <div>
+      <Heading style={{marginLeft: "10vw", color: "rgb(111, 255, 176)"}}>Supplement Assistant</Heading>
+      <Text style={{fontSize: "22px", fontWeight: "750", marginLeft: "10vw"}}>
+        Here you can input name of your <Text style={{fontSize: "25px", color: "rgb(111, 255, 176)"}}>supplement</Text> 
+        </Text>
+      <div style={{marginTop: "2vh"}}> </div>
+      <TextInput 
+        style={{width:"80vw", marginLeft: "10vw", marginBottom: "2vh",
+          borderWidth: "1px", borderColor: "rgb(125, 76, 219)"
+        }}
         type="text" 
         placeholder="Your protein..."
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
-      <div style={{width:"80vw", margin: "auto"}}>
-        <Select placeholder="Text language..." options={optionsLang}
-            onChange={(newValue) => setLang(newValue['value'])}/>
+      <div style={{width:"80vw", marginLeft: "10vw"}}>
+        <Select style={{width: "75vw", border: "1px solid rgb(125, 76, 219)"}}
+            placeholder="Text language..." options={['English', 'Russian']}
+            onChange={({ option }) => setLang(option)}/>
       </div>
       <div style={{margin:"25px"}}>
         <Camera
@@ -244,19 +244,26 @@ const Photo = () => {
             onTakePhoto = { (dataUri) => { handleTakePhoto(dataUri); } }
           />
       </div>
-      <div style={{width:"80vw", margin: "auto"}}>
-        <Select placeholder="Search category..." options={options}
-            onChange={(newValue) => setUserCategory(newValue['label'])}/>
+      <div style={{width:"80vw", marginLeft: "10vw"}}>
+        <Select style={{width: "75vw", border: "1px solid rgb(125, 76, 219)"}}
+            placeholder="Search category..." options={['Bee products', 'Allergens', 'Sweeteners']}
+            onChange={({ option }) => setUserCategory(option)}/>
       </div>
-      <h1 style={{color: "red", marginLeft: "10vw"}}>{harmfulText}</h1>
-      <h1 style={{color: "orange", marginLeft: "10vw"}}>{categoryText}</h1>
-      <h1 style={{color: "green", marginLeft: "10vw"}}>{okayText}</h1>
-
-      <h2 style={{marginLeft: "10vw"}}>{qualityText}</h2>
-
-      <h2 style={{marginLeft: "10vw"}}>{description}</h2>
       <div style={{marginTop: "2vh"}}> </div>
-      <button style={{marginLeft: "10vw"}} onClick={handleSubmit}>Create individual notification</button>
+      {harmfulText !== '' ? 
+      <div><Text style={{fontWeight: "750", color: "rgb(111, 255, 176)", marginLeft: "10vw"}}>{harmfulText}</Text><br></br></div> : ''}
+      {categoryText !== '' ? 
+      <div><Text style={{fontWeight: "750", color: "rgb(125, 76, 219)", marginLeft: "10vw"}}>{categoryText}</Text><br></br></div> : ''}
+      {okayText !== '' ? 
+      <div><Text style={{fontWeight: "750", color: "white", marginLeft: "10vw"}}>{okayText}</Text><br></br></div> : ''}
+      <div style={{marginTop: "2vh"}}> </div>
+      {qualityText !== '' ? 
+      <div><Text style={{color: "rgb(111, 255, 176)", marginLeft: "10vw"}}>{qualityText}</Text><div style={{marginTop: "2vh"}}> </div></div> : ''}
+      {description !== '' ? 
+      <div><Text style={{width:"80vw", marginLeft: "10vw", display: "block"}}>{description}</Text><div style={{marginTop: "2vh"}}> </div></div> : ''}
+      <Button primary style={{marginLeft: "10vw", padding: "10px", color: "black",
+        fontWeight: "750", backgroundColor: "rgb(111, 255, 176)",}}
+       onClick={handleSubmit}>Create individual notification</Button>
       <div style={{marginTop: "2vh"}}> </div>
     </div>
   );

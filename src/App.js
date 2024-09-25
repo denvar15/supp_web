@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Grommet } from 'grommet';
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
@@ -8,20 +9,37 @@ import Stream from "./pages/Stream";
 import Photo from "./pages/Photo";
 import Notifications from "./pages/Notifications";
 
-import "./App.css";
+const theme = {
+  global: {
+    font: {
+      family: "Oxygen",
+      size: "18px",
+      height: "20px",
+    },
+    select: {
+      background: "black"
+    },
+    drop: {
+      background: "black"
+    }
+  },
+};
+
 const App = () => {
 
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/additional" element={<HomePage />}></Route>
-        <Route path="/scanner" element={<QRScanner />}></Route>
-        <Route path="/stream" element={<Stream />}></Route>
-        <Route path="/" element={<Photo />}></Route>
-        <Route path="/notifications" element={<Notifications />}></Route>
-      </Routes>
-    </BrowserRouter>
+    <Grommet theme={theme} style={{backgroundColor: "black", color: "white"}} full>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/additional" element={<HomePage />}></Route>
+          <Route path="/scanner" element={<QRScanner />}></Route>
+          <Route path="/stream" element={<Stream />}></Route>
+          <Route path="/" element={<Photo />}></Route>
+          <Route path="/notifications" element={<Notifications />}></Route>
+        </Routes>
+      </BrowserRouter>
+    </Grommet>
   );
 };
 
