@@ -1,6 +1,6 @@
 {
-  "short_name": "Dummy ",
-  "name": "Create React App Sample",
+  "short_name": "Supplement Assistant",
+  "name": "Supplement Assistant",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,19 +8,19 @@
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
+      "src": "logo.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "logo512.png",
+      "src": "logo.png",
       "type": "image/png",
       "sizes": "512x512"
     }
   ],
   "start_url": "/",
-  "theme_color": "#F4BD42",
-  "background_color": "#2B2929",
+  "theme_color": "#6fffb0",
+  "background_color": "#000000",
   "display": "standalone",
   "scope": "/"
 }

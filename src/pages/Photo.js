@@ -230,8 +230,10 @@ const Photo = () => {
         <Camera
             idealFacingMode={FACING_MODES.ENVIRONMENT}
             onTakePhoto = { (dataUri) => { handleTakePhoto(dataUri); } }
+            imageCompression = {0.8}
           />
       </div>
+      <div style={{marginTop: "2vh"}}> </div>
       <Text style={{fontSize: "22px", display: "block", fontWeight: "750", marginLeft: "10vw"}}>
         Here you can input name of your <Text style={{fontSize: "25px", color: "rgb(111, 255, 176)"}}>supplement</Text> 
         </Text>
@@ -241,7 +243,7 @@ const Photo = () => {
           borderWidth: "1px", borderColor: "rgb(125, 76, 219)"
         }}
         type="text" 
-        placeholder="Your protein..."
+        placeholder="Your supplement..."
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
@@ -258,14 +260,14 @@ const Photo = () => {
       </div>
       <div style={{marginTop: "2vh"}}> </div>
       {harmfulText !== '' ? 
-      <div><Text style={{fontWeight: "750", color: "rgb(111, 255, 176)", marginLeft: "10vw"}}>{harmfulText}</Text><br></br></div> : ''}
+      <div><Text style={{fontWeight: "750", display: "block", color: "rgb(111, 255, 176)", marginLeft: "10vw"}}>{harmfulText}</Text><br></br></div> : ''}
       {categoryText !== '' ? 
-      <div><Text style={{fontWeight: "750", color: "rgb(125, 76, 219)", marginLeft: "10vw"}}>{categoryText}</Text><br></br></div> : ''}
+      <div><Text style={{fontWeight: "750", display: "block", color: "rgb(125, 76, 219)", marginLeft: "10vw"}}>{categoryText}</Text><br></br></div> : ''}
       {okayText !== '' ? 
-      <div><Text style={{fontWeight: "750", color: "white", marginLeft: "10vw"}}>{okayText}</Text><br></br></div> : ''}
+      <div><Text style={{fontWeight: "750", display: "block", color: "white", marginLeft: "10vw"}}>{okayText}</Text><br></br></div> : ''}
       <div style={{marginTop: "2vh"}}> </div>
       {qualityText !== '' ? 
-      <div><Text style={{color: "rgb(111, 255, 176)", marginLeft: "10vw"}}>{qualityText}</Text><div style={{marginTop: "2vh"}}> </div></div> : ''}
+      <div><Text style={{color: "rgb(111, 255, 176)", display: "block", marginLeft: "10vw"}}>{qualityText}</Text><div style={{marginTop: "2vh"}}> </div></div> : ''}
       {description !== '' ? 
       <div><Text style={{width:"80vw", marginLeft: "10vw", display: "block"}}>{description}</Text><div style={{marginTop: "2vh"}}> </div></div> : ''}
       <Button primary style={{marginLeft: "10vw", padding: "10px", color: "black",

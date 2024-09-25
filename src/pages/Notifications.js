@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import sendNotification, { showNotification } from "../service/notification";
-import { Heading, Text, Select, TextInput, Button } from 'grommet';
+import { Heading, Text, TextInput, Button } from 'grommet';
+import { replace, useNavigate } from "react-router";
 
 const Notifications = () => {
   const [age, setAge] = useState("");
@@ -13,6 +14,7 @@ const Notifications = () => {
   const [interval, setInterval] = useState("");
   const categoryText = window.localStorage.getItem("CategoryText")
   const name = window.localStorage.getItem("Name")
+  const navigate = useNavigate();
 
   const checkDosage = (event) => {
     event.preventDefault();
@@ -121,6 +123,8 @@ const Notifications = () => {
       <div style={{marginTop: "2vh"}}> </div>
       {okayDosageText !== '' ? 
       <div><Text style={{fontSize: "25px", fontWeight: "750", color: "rgb(125, 76, 219)", marginLeft: "10vw"}}>{okayDosageText}</Text></div> : ''}
+      <Button type="submit" primary style={{marginLeft: "80vw", padding: "10px", fontWeight: "750"}} 
+      onClick={() => navigate("/", {replace: true})}>Back to Photo</Button>
     </div>
   );
 };
