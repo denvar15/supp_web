@@ -102,7 +102,7 @@ const Photo = () => {
   const [okayText, setOkayText] = useState(""); 
   const [qualityText, setQualityText] = useState(""); 
   const [userCategory, setUserCategory] = useState("Bee products"); 
-  const [lang, setLang] = useState("eng"); 
+  const [lang, setLang] = useState("English"); 
   const [description, setDescription] = useState(""); 
   const navigate = useNavigate();
 
@@ -219,8 +219,20 @@ const Photo = () => {
 
   return (
     <div>
-      <Heading style={{marginLeft: "10vw", color: "rgb(111, 255, 176)"}}>Supplement Assistant</Heading>
-      <Text style={{fontSize: "22px", fontWeight: "750", marginLeft: "10vw"}}>
+      <Text style={{fontSize: "25px", fontWeight: "750", display: "block", border: "3px solid rgb(125, 76, 219)",
+                 padding: "10px", color: "rgb(111, 255, 176)", borderRadius: "5px", textAlign: "center"}}>
+        Supplement <Text style={{fontSize: "25px", fontWeight: "750", color: "white"}}>Assistant</Text>
+      </Text>
+      <Heading style={{display: "block", marginLeft: "10vw", color: "rgb(111, 255, 176)"}}>
+        Take <Text style={{fontSize: "50px", fontWeight: "750", color: "white"}}>Photo</Text>
+      </Heading>
+      <div style={{margin: "auto"}}>
+        <Camera
+            idealFacingMode={FACING_MODES.ENVIRONMENT}
+            onTakePhoto = { (dataUri) => { handleTakePhoto(dataUri); } }
+          />
+      </div>
+      <Text style={{fontSize: "22px", display: "block", fontWeight: "750", marginLeft: "10vw"}}>
         Here you can input name of your <Text style={{fontSize: "25px", color: "rgb(111, 255, 176)"}}>supplement</Text> 
         </Text>
       <div style={{marginTop: "2vh"}}> </div>
@@ -238,12 +250,7 @@ const Photo = () => {
             placeholder="Text language..." options={['English', 'Russian']}
             onChange={({ option }) => setLang(option)}/>
       </div>
-      <div style={{margin:"25px"}}>
-        <Camera
-            idealFacingMode={FACING_MODES.ENVIRONMENT}
-            onTakePhoto = { (dataUri) => { handleTakePhoto(dataUri); } }
-          />
-      </div>
+      <div style={{marginTop: "2vh"}}> </div>
       <div style={{width:"80vw", marginLeft: "10vw"}}>
         <Select style={{width: "75vw", border: "1px solid rgb(125, 76, 219)"}}
             placeholder="Search category..." options={['Bee products', 'Allergens', 'Sweeteners']}

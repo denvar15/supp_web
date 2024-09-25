@@ -37,7 +37,13 @@ const Notifications = () => {
 
   return (
     <div>
-      <Heading style={{marginLeft: "10vw", color: "rgb(111, 255, 176)"}}>Create notifications for {name}</Heading>
+      <Text style={{fontSize: "25px", fontWeight: "750", display: "block", border: "3px solid rgb(125, 76, 219)",
+                 padding: "10px", color: "rgb(111, 255, 176)", borderRadius: "5px", textAlign: "center"}}>
+        Supplement <Text style={{fontSize: "25px", fontWeight: "750", color: "white"}}>Assistant</Text>
+      </Text>
+      <Heading style={{display: "block", marginLeft: "10vw", color: "rgb(111, 255, 176)"}}>
+        Create notifications for <Text style={{fontSize: "50px", color: "white"}}>{name}</Text>
+      </Heading>
         <Text style={{fontSize: "25px", display: "block", fontWeight: "750", color: "white", marginLeft: "10vw"}}>
             Here you can create scheduled <Text style={{fontSize: "25px", color: "rgb(111, 255, 176)"}}>notification</Text> about your supplement:
         </Text>
@@ -63,12 +69,12 @@ const Notifications = () => {
           onChange={(e) => setInterval(e.target.value)}
           />
       <Button primary style={{fontWeight: "750", marginLeft: "10vw", padding: "10px"}} onClick={handleNotification}>Create notification</Button>
-      <div style={{marginTop: "7vh"}}> </div>
       {okayText !== '' ? 
-      <div><Text style={{fontWeight: "750", color: "white", marginLeft: "10vw"}}>{okayText}</Text><br></br></div> : ''}
+      <div><div style={{marginTop: "2vh"}}> </div><Text style={{fontWeight: "750", color: "white", marginLeft: "10vw"}}>{okayText}</Text></div> : ''}
+      <div style={{marginTop: "7vh"}}> </div>
       <form onSubmit={checkDosage}>
         <label>
-          <Text style={{fontSize: "25px", fontWeight: "750", color: "white", marginLeft: "10vw"}}>
+          <Text style={{fontSize: "25px", display: "block", fontWeight: "750", color: "white", marginLeft: "10vw"}}>
             Here you can input your <Text style={{fontSize: "25px", color: "rgb(111, 255, 176)"}}>individual</Text> parameters:
           </Text>
           <div style={{marginTop: "2vh"}}> </div>
