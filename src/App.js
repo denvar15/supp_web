@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage";
 import QRScanner from "./pages/Scanner";
 import Stream from "./pages/Stream";
 import Photo from "./pages/Photo";
+import Notifications from "./pages/Notifications";
 
 import "./App.css";
 const App = () => {
@@ -14,10 +15,11 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<HomePage />}></Route>
+        <Route path="/additional" element={<HomePage />}></Route>
         <Route path="/scanner" element={<QRScanner />}></Route>
         <Route path="/stream" element={<Stream />}></Route>
-        <Route path="/photo" element={<Photo />}></Route>
+        <Route path="/" element={<Photo />}></Route>
+        <Route path="/notifications" element={<Notifications />}></Route>
       </Routes>
     </BrowserRouter>
   );

@@ -1,13 +1,14 @@
-const sendNotification = (body, title) =>
+const sendNotification = (body, title, hours) =>
   Notification.requestPermission().then((permission) => {
     if (permission === "granted") {
       new Notification(title ? title : "Title", {
         body: body ? body : "This is body",
         icon: "https://cdn.iconscout.com/icon/free/png-256/notification-2-1175416.png",
       });
+      setTimeout(sendNotification, hours*60*60*1000, body, title, hours);
     }
   });
-export function showNotification(body, title, icon, tag) {
+export function showNotification(body, hours, icon, tag) {
   Notification.requestPermission(function (result) {
     if (result === "granted") {
       navigator.serviceWorker.ready.then(function (registration) {
@@ -26,6 +27,7 @@ export function showNotification(body, title, icon, tag) {
           ]
         });
       });
+      setTimeout(showNotification, hours*60*60*1000, body, hours); 
     }
   });
 }
