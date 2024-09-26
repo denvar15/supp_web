@@ -1,33 +1,35 @@
+import logo from "./logo.png" 
+
 const sendNotification = (body, title, hours) =>
   Notification.requestPermission().then((permission) => {
     if (permission === "granted") {
-      new Notification(title ? title : "Title", {
-        body: body ? body : "This is body",
-        icon: "https://cdn.iconscout.com/icon/free/png-256/notification-2-1175416.png",
+      new Notification(title ? title : "Your supplement", {
+        body: body ? "It's time to take " + body + " gramms" : "This is body",
+        icon: logo,
       });
       setTimeout(sendNotification, hours*60*60*1000, body, title, hours);
     }
   });
-export function showNotification(body, hours, icon, tag) {
+export function showNotification(body, hours, title, tag) {
   Notification.requestPermission(function (result) {
     if (result === "granted") {
       navigator.serviceWorker.ready.then(function (registration) {
-        registration.showNotification("Vibration Sample", {
-          body: body ? body : "Buzz! Buzz!",
-          icon: "../public/logo192.png",
+        registration.showNotification(title, {
+          body: body ? "It's time to take " + body + " gramms" : "Buzz! Buzz!",
+          icon: logo,
           vibrate: [200, 100, 200, 100, 200, 100, 200],
-          tag: "Test",
-          image:'https://vermontplankflooring.com/wp-content/uploads/2018/11/wide-plank-hickory-floor.jpg',
+          tag: title,
+          image: logo,
           actions: [
             {
-              action: 'https.google.com',
-              title: 'click here to open',
-              icon: 'https://cdn.onlinewebfonts.com/svg/img_286633.png'
+              action: 'https://supp-web.vercel.app/',
+              title: 'Maybe, one more scan?',
+              icon: logo
             }
           ]
         });
       });
-      setTimeout(showNotification, hours*60*60*1000, body, hours); 
+      setTimeout(showNotification, hours*60*60*1000, body, hours, title); 
     }
   });
 }

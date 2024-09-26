@@ -5,7 +5,8 @@ import { Shop } from 'grommet-icons';
 
 const Cart = () => {
   const navigate = useNavigate();
-  const items = JSON.parse(window.localStorage.getItem("scannedItems")) ? JSON.parse(window.localStorage.getItem("scannedItems")) : [];
+  let items = JSON.parse(window.localStorage.getItem("scannedItems")) ? JSON.parse(window.localStorage.getItem("scannedItems")) : [];
+  items = items.reverse()
 
   return (
     <div>
@@ -14,7 +15,7 @@ const Cart = () => {
         Supplement <Text style={{fontSize: "25px", fontWeight: "750", color: "white"}}>Assistant</Text>
       </Text>
       <Heading style={{display: "block", marginLeft: "10vw", color: "rgb(111, 255, 176)"}}>
-        History of your <Text style={{fontSize: "40px", color: "white"}}>scans</Text>
+        History of your <Heading style={{display: "inline", color: "white"}}>scans</Heading>
       </Heading>
 
       <List

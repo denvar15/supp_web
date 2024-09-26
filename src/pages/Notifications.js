@@ -30,11 +30,11 @@ const Notifications = () => {
     //from browser
     Notification.requestPermission().then((permission) => {
       if (permission === "granted") {
-        setTimeout(sendNotification, interval*60**60*1000, dosage, name, interval);
+        setTimeout(sendNotification, interval*60*60*1000, dosage, name, interval);
       }
     });
     // from PWA
-    setTimeout(showNotification, interval*60**60*1000, name + " " + dosage, interval);
+    setTimeout(showNotification, interval*60*60*1000, dosage, interval, name);
     setOkayText("Notification for " + name + " created succesfully!")
   };
 
@@ -45,7 +45,7 @@ const Notifications = () => {
         Supplement <Text style={{fontSize: "25px", fontWeight: "750", color: "white"}}>Assistant</Text>
       </Text>
       <Heading style={{display: "block", marginLeft: "10vw", color: "rgb(111, 255, 176)"}}>
-        Create notifications for <Text style={{fontSize: "50px", color: "white"}}>{name}</Text>
+        Create notifications for <Heading style={{display: "inline", color: "white"}}>{name}</Heading>
       </Heading>
         <Text style={{fontSize: "25px", display: "block", fontWeight: "750", color: "white", marginLeft: "10vw"}}>
             Here you can create scheduled <Text style={{fontSize: "25px", color: "rgb(111, 255, 176)"}}>notification</Text> about your supplement:

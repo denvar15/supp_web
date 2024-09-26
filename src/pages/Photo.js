@@ -236,7 +236,7 @@ const Photo = () => {
         Supplement <Text style={{fontSize: "25px", fontWeight: "750", color: "white"}}>Assistant</Text>
       </Text>
       <Heading style={{display: "block", marginLeft: "10vw", color: "rgb(111, 255, 176)"}}>
-        Take <Text style={{fontSize: "50px", fontWeight: "750", color: "white"}}>Photo</Text>
+        Take <Heading style={{display: "inline", color: "white"}}>Photo</Heading>
       </Heading>
       <div style={{margin: "auto"}}>
         <Camera
