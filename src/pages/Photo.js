@@ -177,8 +177,8 @@ const Photo = () => {
         getDescription(ar_message)
         let items = JSON.parse(window.localStorage.getItem("scannedItems"))
         if (!items) {items = []}
-        items.push({"name": name, "category": [userCategory, categoryCompounds], 
-          "harmful": harmfulCompounds, "quality": qualityCheck})
+        items.push({"name": name, "category": [userCategory, category_compounds], 
+          "harmful": founded_compounds, "quality": quality_compounds})
         window.localStorage.setItem("scannedItems", JSON.stringify(items))
     }
 
