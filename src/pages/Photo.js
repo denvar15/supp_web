@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Camera, { FACING_MODES } from 'react-html5-camera-photo';
 import 'react-html5-camera-photo/build/css/index.css';
-import "./scanner.css";
 import { useNavigate } from "react-router";
 import { Heading, Text, Select, TextInput, Button, Grid } from 'grommet';
 import { Shop } from 'grommet-icons';

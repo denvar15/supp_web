@@ -3,8 +3,6 @@ import { Grommet } from 'grommet';
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import HomePage from "./pages/HomePage";
-import QRScanner from "./pages/Scanner";
 import Cart from "./pages/Cart";
 import Photo from "./pages/Photo";
 import Notifications from "./pages/Notifications";
@@ -32,8 +30,6 @@ const App = () => {
     <Grommet theme={theme} style={{backgroundColor: "black", color: "white"}} full>
       <BrowserRouter>
         <Routes>
-          <Route path="/additional" element={<HomePage />}></Route>
-          <Route path="/scanner" element={<QRScanner />}></Route>
           <Route path="/cart" element={<Cart />}></Route>
           <Route path="/" element={<Photo />}></Route>
           <Route path="/notifications" element={<Notifications />}></Route>
