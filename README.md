@@ -5,6 +5,20 @@ It allows you to easily and quickly scan your dietary supplements, sports nutrit
 
 Be healthy, be safe
 
+# Links
+
+https://supp-web.vercel.app/
+
+https://supp-web-denvar15s-projects.vercel.app/
+
+# Screenshots
+
+<img src="https://github.com/user-attachments/assets/84c599e3-c441-4dd0-aa5e-b3b1cdff4c1e" height="400"/>
+
+<img src="https://github.com/user-attachments/assets/77b75904-dda1-48f4-bd87-bff13541f667" height="400"/>
+
+<img src="https://github.com/user-attachments/assets/6da6d7a9-e47b-4829-a70d-a82fad1cb872" height="400"/>
+
 # Core Features
 
 <ol>
@@ -16,4 +30,7 @@ Be healthy, be safe
   <li><span>&#10004;</span> Dosage Check</li>
   <li><span>&#10004;</span> History of Scans</li>
 </ol>
- 
+
+ # References
+
+ https://github.com/Devichand1/react-pwa
