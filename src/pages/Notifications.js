@@ -73,7 +73,8 @@ const Notifications = () => {
           />
       <Button primary style={{fontWeight: "750", marginLeft: "10vw", padding: "10px"}} onClick={handleNotification}>Create notification</Button>
       {okayText !== '' ? 
-      <div><div style={{marginTop: "2vh"}}> </div><Text style={{fontWeight: "750", color: "white", marginLeft: "10vw"}}>{okayText}</Text></div> : ''}
+      <div  style={{display: "block"}}><div style={{marginTop: "2vh"}}> </div>
+      <Text style={{display: "block", fontWeight: "750", color: "white", marginLeft: "10vw"}}>{okayText}</Text></div> : ''}
       <div style={{marginTop: "7vh"}}> </div>
       <form onSubmit={checkDosage}>
         <label>

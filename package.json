@@ -16,6 +16,7 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "react-select": "^5.8.1",
+    "react-spinners": "^0.14.1",
     "styled-components": "5.3.11",
     "web-vitals": "^0.2.4",
     "workbox-background-sync": "^5.1.4",

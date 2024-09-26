@@ -5,6 +5,7 @@ import "./scanner.css";
 import { useNavigate } from "react-router";
 import { Heading, Text, Select, TextInput, Button, Grid } from 'grommet';
 import { Shop } from 'grommet-icons';
+import RingLoader from "react-spinners/RingLoader";
 
 const quality_marks = ['GMP', 'ISO', 'NSF', 'HACCP', 'SQF', 'FSSC'].map(v => v.toLowerCase())
 const important_array = ['Titanium Dioxide', 'kava', 'Magnesium Silicate', 'Magnesium Stearate', 'Talc', 'Hydrogenated Oil',
@@ -168,6 +169,9 @@ const Photo = () => {
                   setOkayText("Everything is okay!")
                 }
         }
+        const spinner = document.getElementById("spinner");
+        spinner.style.display = 'none';
+
         setCategoryCompounds(category_compounds)
         setHarmfulCompounds(founded_compounds)
         setQualityCheck(quality_compounds)
@@ -180,6 +184,9 @@ const Photo = () => {
     }
 
   async function handleTakePhoto (dataUri) {
+    const spinner = document.getElementById("spinner");
+    spinner.style.display = 'inline';
+
     var dimensions = await getImageDimensions(dataUri)
     const approxSize = dataUri.length
     const scaler = 1024000 / approxSize
@@ -238,13 +245,22 @@ const Photo = () => {
       <Heading style={{display: "block", marginLeft: "10vw", color: "rgb(111, 255, 176)"}}>
         Take <Heading style={{display: "inline", color: "white"}}>Photo</Heading>
       </Heading>
-      <div style={{margin: "auto"}}>
+      <div id='camera' style={{margin: "auto"}}>
         <Camera
             idealFacingMode={FACING_MODES.ENVIRONMENT}
             onTakePhoto = { (dataUri) => { handleTakePhoto(dataUri); } }
             imageCompression = {0.8}
           />
       </div>
+      <RingLoader
+        id='spinner'
+        style={{display: "none", position: "absolute",  top: "30vh", left: window.innerWidth / 2 - 80}}
+        color={'rgb(125, 76, 219)'}
+        loading={true}
+        size={160}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+      />
       <div style={{marginTop: "2vh"}}> </div>
       <Text style={{fontSize: "22px", display: "block", fontWeight: "750", marginLeft: "10vw"}}>
         Here you can input name of your <Text style={{fontSize: "25px", color: "rgb(111, 255, 176)"}}>supplement</Text> 
