@@ -17,7 +17,7 @@ https://supp-web-denvar15s-projects.vercel.app/
 
 <img src="https://github.com/user-attachments/assets/77b75904-dda1-48f4-bd87-bff13541f667" height="400"/>
 
-<img src="https://github.com/user-attachments/assets/6da6d7a9-e47b-4829-a70d-a82fad1cb872" height="400"/>
+<img src="https://github.com/user-attachments/assets/e036d234-5f89-4781-b6f6-cdf7f4ac156e" height="400"/>
 
 # Core Features
 
